@@ -46,6 +46,7 @@ body{
     justify-content: center;
     cursor: pointer;
     color: #242424;
+    border: none;
     font-size: 1.5rem;
 }
 
@@ -56,4 +57,8 @@ body{
 .equals{
     background: #4bd086;
     grid-column: 3/5;
+}
+
+.opt{
+    background: #f79505;
 }
