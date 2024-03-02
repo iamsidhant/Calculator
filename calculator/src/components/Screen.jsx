@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { CalcContext } from '../context/CalcContext'
+
 
 const Screen = () => {
+  const { calc } = useContext(CalcContext);
+
   return (
-    <div>Screen</div>
+    <div className='screen' max={70} mode="single">{calc.num ? calc.num : calc.res}</div>
   )
 }
 

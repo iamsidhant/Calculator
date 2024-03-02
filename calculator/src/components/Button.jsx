@@ -14,10 +14,16 @@ const getStyleName = btn => {
 }
 
 const Button = ({value}) => {
-  const[calc, setCalc] = useContext(CalcContext);
+  const {calc, setCalc} = useContext(CalcContext);
 
   const handleBtnClick = () => {
-    const commaClick = () => {}
+    const commaClick = () => {
+      setCalc({
+        ...calc,
+        num: !calc.num.toString().includes('.') ? calc.num + val : calc.num
+      })
+    }
+
     const resetClick = () => {
       setCalc({
         sign: "",
@@ -43,9 +49,32 @@ const Button = ({value}) => {
       })
     }
 
-    const signClick = () => {}
+    const signClick = () => {
+      setCalc({
+        sign: value,
+        res: !calc.res && calc.num ? calc.num : calc.res,
+        num: 0
+      })
+    }
 
-    const equalsClick = () => {}
+    const equalsClick = () => {
+      if(calc.num && calc.res){
+        const math = (a, b, sign) => {
+          const result = {
+            '+': (a, b) => a + b,
+            '-': (a, b) => a - b,
+            '/': (a, b) => a / b,
+            'x': (a, b) => a * b
+          }
+          return result[sign](a, b);
+        }
+        setCalc({
+          res: math(calc.res, calc.num, calc.sign),
+          sign: '',
+          num: 0
+        })
+      }
+    }
 
     const percentClick = () => {
       setCalc({
@@ -75,7 +104,7 @@ const Button = ({value}) => {
       '+-': invertClick
     }
     if (results[value]) {
-      return results[value]
+      return results[value]()
     } else {
       return handleClickButton()
     }
